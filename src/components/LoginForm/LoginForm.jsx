@@ -53,7 +53,7 @@ const LoginForm = ({ handleSubmit, error }) => {
             </button>
             {error && (
               <p className={css.errorText}>
-                Oops, some error occured... {error}
+                Incorrectly entered login or password!
               </p>
             )}
           </Form>

@@ -62,7 +62,7 @@ const RegistrationForm = ({ handleSubmit, error }) => {
             </button>
             {error && (
               <p className={css.errorText}>
-                Oops, some error occured... {error}
+                Invalid email or password! {error}
               </p>
             )}
           </Form>

@@ -9,10 +9,11 @@ import clsx from "clsx";
 import "./App.css";
 import css from "./App.module.css";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
 import { fetchContacts, deleteContact, addContact } from "./redux/contactsOps";
+import { selectAuthIsLoggedIn, selectAuthUser } from "./redux/auth/selectors";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
@@ -20,6 +21,8 @@ const LoginPage = lazy(() => import("./pages/LoginPage"));
 const ContactsPage = lazy(() => import("./pages/ContactsPage"));
 
 function App() {
+  const isLoggedIn = useSelector(selectAuthIsLoggedIn);
+  const user = useSelector(selectAuthUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,18 +47,18 @@ function App() {
           >
             Home
           </NavLink>
-          <NavLink
-            className={({ isActive }) => clsx(css.link, isActive && css.active)}
-            to="/register"
-          >
-            Register
-          </NavLink>
-          <NavLink
-            className={({ isActive }) => clsx(css.link, isActive && css.active)}
-            to="/login"
-          >
-            Log In
-          </NavLink>
+          {isLoggedIn ? (
+            <NavLink
+              className={({ isActive }) =>
+                clsx(css.link, isActive && css.active)
+              }
+              to="/contacts"
+            >
+              Contacts
+            </NavLink>
+          ) : (
+            <></>
+          )}
         </nav>
       </header>
       <main>
