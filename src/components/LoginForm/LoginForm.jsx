@@ -1,7 +1,7 @@
 import { ErrorMessage, Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-import css from "./RegistrationForm.module.css";
+import css from "./LoginForm.module.css";
 
 const initialValues = {
   name: "",
@@ -9,9 +9,8 @@ const initialValues = {
   password: "",
 };
 
-const RegistrationForm = ({ handleSubmit, error }) => {
+const LoginForm = ({ handleSubmit, error }) => {
   const validate = Yup.object({
-    name: Yup.string().required("Name is required!"),
     email: Yup.string()
       .email("Email is invalid!")
       .required("Email is required!"),
@@ -28,17 +27,8 @@ const RegistrationForm = ({ handleSubmit, error }) => {
         onSubmit={handleSubmit}
       >
         <div>
-          <h1 className="">Sign Up</h1>
+          <h1 className="">Sign In</h1>
           <Form className={css.form}>
-            <label className={css.label}>
-              <span>Name: </span>
-              <Field type="text" name="name" placeholder="Name" />
-              <ErrorMessage
-                className={css.errorText}
-                name="name"
-                component="span"
-              />
-            </label>
             <label className={css.label}>
               <span>Email: </span>
               <Field type="text" name="email" placeholder="email" />
@@ -48,6 +38,7 @@ const RegistrationForm = ({ handleSubmit, error }) => {
                 component="span"
               />
             </label>
+
             <label className={css.label}>
               <span>Password: </span>
               <Field type="password" name="password" placeholder="Password" />
@@ -58,7 +49,7 @@ const RegistrationForm = ({ handleSubmit, error }) => {
               />
             </label>
             <button className={css.submitBtn} type="submit">
-              Sign Up
+              Sign In
             </button>
             {error && (
               <p className={css.errorText}>
@@ -72,4 +63,4 @@ const RegistrationForm = ({ handleSubmit, error }) => {
   );
 };
 
-export default RegistrationForm;
+export default LoginForm;
