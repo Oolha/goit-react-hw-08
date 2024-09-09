@@ -1,12 +1,23 @@
 import ContactList from "./components/ContactList/ContactList";
 import ContactForm from "./components/ContactForm/ContactForm";
 import SearchBox from "./components/SearchBox/SearchBox";
+
+import { Routes, Route, NavLink } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import Loader from "./components/Loader/Loader";
+import clsx from "clsx";
 import "./App.css";
+import css from "./App.module.css";
 
 import { useDispatch } from "react-redux";
 
 import { useEffect } from "react";
 import { fetchContacts, deleteContact, addContact } from "./redux/contactsOps";
+
+const HomePage = lazy(() => import("./pages/HomePage"));
+const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const ContactsPage = lazy(() => import("./pages/ContactsPage"));
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +36,39 @@ function App() {
 
   return (
     <div className="container">
+      <header>
+        <nav className={css.nav}>
+          <NavLink
+            className={({ isActive }) => clsx(css.link, isActive && css.active)}
+            to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => clsx(css.link, isActive && css.active)}
+            to="/register"
+          >
+            Register
+          </NavLink>
+          <NavLink
+            className={({ isActive }) => clsx(css.link, isActive && css.active)}
+            to="/login"
+          >
+            Log In
+          </NavLink>
+        </nav>
+      </header>
+      <main>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/register" element={<RegistrationPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/contacts" element={<ContactsPage />} />
+          </Routes>
+        </Suspense>
+      </main>
+      <footer></footer>
       <h1 className="title">Phonebook</h1>
       <ContactForm onAddContact={addContactForm} />
       <SearchBox />
