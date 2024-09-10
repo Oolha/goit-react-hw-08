@@ -1,19 +1,17 @@
-import ContactList from "./components/ContactList/ContactList";
-import ContactForm from "./components/ContactForm/ContactForm";
-import SearchBox from "./components/SearchBox/SearchBox";
-
-import { Routes, Route, NavLink } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import Loader from "./components/Loader/Loader";
-import clsx from "clsx";
+import { Routes, Route } from "react-router-dom";
+import { lazy } from "react";
+// import Loader from "./components/Loader/Loader";
+// import clsx from "clsx";
 import "./App.css";
-import css from "./App.module.css";
+// import css from "./App.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
-
 import { useEffect } from "react";
-import { fetchContacts, deleteContact, addContact } from "./redux/contactsOps";
-import { selectAuthIsLoggedIn, selectAuthUser } from "./redux/auth/selectors";
+import { selectAuthIsRefreshing } from "./redux/auth/selectors";
+import { refreshUser } from "./redux/auth/operations";
+import { Layout } from "./components/Loyaut/Loyaut";
+import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
@@ -21,62 +19,59 @@ const LoginPage = lazy(() => import("./pages/LoginPage"));
 const ContactsPage = lazy(() => import("./pages/ContactsPage"));
 
 function App() {
-  const isLoggedIn = useSelector(selectAuthIsLoggedIn);
-  const user = useSelector(selectAuthUser);
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectAuthIsRefreshing);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  const addContactForm = (contact) => {
-    dispatch(addContact(contact));
-  };
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
 
-  const DeleteContact = (contactId) => {
-    dispatch(deleteContact(contactId));
-  };
+  // const addContactForm = (contact) => {
+  //   dispatch(addContact(contact));
+  // };
 
-  return (
-    <div className="container">
-      <header>
-        <nav className={css.nav}>
-          <NavLink
-            className={({ isActive }) => clsx(css.link, isActive && css.active)}
-            to="/"
-          >
-            Home
-          </NavLink>
-          {isLoggedIn ? (
-            <NavLink
-              className={({ isActive }) =>
-                clsx(css.link, isActive && css.active)
-              }
-              to="/contacts"
-            >
-              Contacts
-            </NavLink>
-          ) : (
-            <></>
-          )}
-        </nav>
-      </header>
-      <main>
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/register" element={<RegistrationPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/contacts" element={<ContactsPage />} />
-          </Routes>
-        </Suspense>
-      </main>
-      <footer></footer>
-      <h1 className="title">Phonebook</h1>
-      <ContactForm onAddContact={addContactForm} />
-      <SearchBox />
-      <ContactList onDeleteContact={DeleteContact} />
-    </div>
+  // const DeleteContact = (contactId) => {
+  //   dispatch(deleteContact(contactId));
+  // };
+
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegistrationPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+          }
+        />
+      </Routes>
+    </Layout>
+
+    // <h1 className="title">Phonebook</h1>
+    // <ContactForm onAddContact={addContactForm} />
+    // <SearchBox />
+    // <ContactList onDeleteContact={DeleteContact} />
   );
 }
 

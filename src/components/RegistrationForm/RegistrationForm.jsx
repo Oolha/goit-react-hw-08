@@ -41,7 +41,7 @@ const RegistrationForm = ({ handleSubmit, error }) => {
             </label>
             <label className={css.label}>
               <span>Email: </span>
-              <Field type="text" name="email" placeholder="email" />
+              <Field type="text" name="email" placeholder="Email" />
               <ErrorMessage
                 className={css.errorText}
                 name="email"
