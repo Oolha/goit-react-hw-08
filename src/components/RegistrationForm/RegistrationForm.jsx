@@ -21,18 +21,22 @@ const RegistrationForm = ({ handleSubmit, error }) => {
   });
 
   return (
-    <div>
+    <div className={css.pageContainer}>
       <Formik
         initialValues={initialValues}
         validationSchema={validate}
         onSubmit={handleSubmit}
       >
         <div>
-          <h1 className="">Sign Up</h1>
           <Form className={css.form}>
+            <p className={css.title}>Create An Account</p>
             <label className={css.label}>
-              <span>Name: </span>
-              <Field type="text" name="name" placeholder="Name" />
+              <Field
+                type="text"
+                name="name"
+                placeholder="Name"
+                className={css.input}
+              />
               <ErrorMessage
                 className={css.errorText}
                 name="name"
@@ -40,8 +44,12 @@ const RegistrationForm = ({ handleSubmit, error }) => {
               />
             </label>
             <label className={css.label}>
-              <span>Email: </span>
-              <Field type="text" name="email" placeholder="Email" />
+              <Field
+                type="text"
+                name="email"
+                placeholder="Email"
+                className={css.input}
+              />
               <ErrorMessage
                 className={css.errorText}
                 name="email"
@@ -49,8 +57,12 @@ const RegistrationForm = ({ handleSubmit, error }) => {
               />
             </label>
             <label className={css.label}>
-              <span>Password: </span>
-              <Field type="password" name="password" placeholder="Password" />
+              <Field
+                type="password"
+                name="password"
+                placeholder="Password"
+                className={css.input}
+              />
               <ErrorMessage
                 className={css.errorText}
                 name="password"

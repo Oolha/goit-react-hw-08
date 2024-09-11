@@ -57,3 +57,17 @@ export const refreshUser = createAsyncThunk(
     },
   }
 );
+
+export const apiLogout = createAsyncThunk(
+  "auth/logout",
+  async (_, thunkApi) => {
+    try {
+      await instance.post("/users/logout");
+      setAuthHeaders("");
+
+      return;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);

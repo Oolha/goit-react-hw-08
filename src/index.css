@@ -1,0 +1,10 @@
+body {
+  font-family: "Karla", sans-serif;
+  background-color: #a7d7c5;
+  margin: 0;
+  padding: 0;
+  width: 1600px;
+  height: 960px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
