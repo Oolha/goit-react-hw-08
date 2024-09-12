@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import RegistrationForm from "../components/RegistrationForm/RegistrationForm";
-import { apiRegister } from "../redux/auth/operations";
-import { selectAuthError } from "../redux/auth/selectors";
-import Background from "../assets/images/Background/Background";
+import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
+import { apiRegister } from "../../redux/auth/operations";
+import { selectAuthError } from "../../redux/auth/selectors";
+import Background from "../../assets/images/Background/Background";
+import css from "./RegistrationPage.module.css";
 
 const RegistrationPage = ({}) => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const RegistrationPage = ({}) => {
     dispatch(apiRegister(values));
   };
   return (
-    <div>
+    <div className={css.registerPage}>
       <Background />
       <RegistrationForm handleSubmit={handleSubmit} error={error} />
     </div>

@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f5f0f0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: rgba(52, 84, 72, 0.5);
+  color: white;
+  padding: 2rem;
+  z-index: 1000;
+  box-sizing: border-box;
+}

@@ -3,7 +3,7 @@ import Contact from "../Contact/Contact";
 import css from "./ContactList.module.css";
 import { selectFilteredContacts } from "../../redux/contacts/slice";
 
-const ContactList = () => {
+const ContactList = ({ onDeleteContact }) => {
   const filteredContacts = useSelector(selectFilteredContacts);
 
   return (
@@ -15,6 +15,7 @@ const ContactList = () => {
               id={contact.id}
               name={contact.name}
               number={contact.number}
+              onDeleteContact={onDeleteContact}
             />
           </li>
         );

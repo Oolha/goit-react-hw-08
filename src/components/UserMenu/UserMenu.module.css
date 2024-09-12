@@ -1,0 +1,11 @@
+.menu {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.btn {
+  padding: 5px;
+  background-color: rgb(226, 244, 198);
+  border: none;
+}

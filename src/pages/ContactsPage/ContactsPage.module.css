@@ -1,0 +1,15 @@
+body {
+  background-color: rgb(142, 174, 169);
+}
+.container {
+  margin-top: 130px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 100px;
+  gap: 30px;
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}

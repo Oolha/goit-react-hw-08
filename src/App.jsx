@@ -1,9 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { lazy } from "react";
-// import Loader from "./components/Loader/Loader";
-// import clsx from "clsx";
+
 import "./App.css";
-// import css from "./App.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -13,10 +11,12 @@ import { Layout } from "./components/Loyaut/Loyaut";
 import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
-const HomePage = lazy(() => import("./pages/HomePage"));
-const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
-const LoginPage = lazy(() => import("./pages/LoginPage"));
-const ContactsPage = lazy(() => import("./pages/ContactsPage"));
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const RegistrationPage = lazy(() =>
+  import("./pages/RegistrationPage/RegistrationPage")
+);
+const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
+const ContactsPage = lazy(() => import("./pages/ContactsPage/ContactsPage"));
 
 function App() {
   const dispatch = useDispatch();
@@ -67,11 +67,6 @@ function App() {
         />
       </Routes>
     </Layout>
-
-    // <h1 className="title">Phonebook</h1>
-    // <ContactForm onAddContact={addContactForm} />
-    // <SearchBox />
-    // <ContactList onDeleteContact={DeleteContact} />
   );
 }
 
