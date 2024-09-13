@@ -5,6 +5,7 @@ import {
   addContact,
 } from "../../redux/contacts/operations";
 import { selectContacts } from "./selectors";
+import { apiLogout } from "../auth/operations";
 
 const INITIAL_STATE = {
   items: [],
@@ -55,6 +56,9 @@ const contactsSlice = createSlice({
       .addCase(addContact.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(apiLogout.fulfilled, (state) => {
+        state.items = [];
       }),
 });
 export const selectFilteredContacts = createSelector(
